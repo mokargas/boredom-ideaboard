@@ -23,6 +23,7 @@ function App() {
     <Provider store={store}>
       <Container>
         <h1>Idea Sandbox</h1>
+        <p>Fun project where we create ideas</p>
         <Node>This is where an idea would go</Node>
       </Container>
     </Provider>
