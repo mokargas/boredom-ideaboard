@@ -4,11 +4,17 @@ export const Reducers = (state = {}, action) => {
   const { id, title, content, updated, created } = action;
   switch (action.type) {
     case ActionTypes.CREATE_NODE:
+      console.log(state);
       return Object.assign({}, state, {
-        title,
-        content,
-        updated: new Date(),
-        created: new Date()
+        nodes: [
+          ...state.nodes,
+          {
+            title,
+            content,
+            updated: new Date(),
+            created: new Date()
+          }
+        ]
       });
     case ActionTypes.UPDATE_NODE:
       return Object.assign({}, state, {
