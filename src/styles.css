@@ -1,6 +1,5 @@
-.App {
-  font-family: sans-serif;
-  text-align: center;
+:root {
+  font-family: "Helvetica", "Arial", sans-serif;
 }
 
 h1 {

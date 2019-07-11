@@ -1,19 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
 import NodeController from "./NodeController/NodeController";
 
-const Actions = styled.div`
-  display: flex;
-  align-items: center;
-  justify-items: center;
+const Container = styled.div`
+  margin: 0 auto;
+  padding: 3rem;
 `;
-const Container = styled.div``;
 
-const App = ({ nodes = [], createNode }) => {
-  const addNode = () => {
-    createNode();
-  };
+const App = ({ nodes = [] }) => {
   return (
     <Container>
       <h1>
@@ -23,33 +17,9 @@ const App = ({ nodes = [], createNode }) => {
         </span>
       </h1>
       <p>Fun project where we create ideas</p>
-      <NodeController nodes={nodes} />
-      <Actions>
-        <button onClick={() => addNode()}>Add new idea</button>
-      </Actions>
+      <NodeController />
     </Container>
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    nodes: state.nodes
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    createNode: (title = "New node", content = "Add data") => {
-      dispatch({
-        type: "CREATE_NODE",
-        title,
-        content
-      });
-    }
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default App;

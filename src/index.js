@@ -13,7 +13,7 @@ import { Reducers as rootReducer } from "./reducers";
 
 const store = createStore(
   rootReducer,
-  { nodes: [] },
+  { nodes: [] }, //TODO: Move, just some test store for now.
   composeWithDevTools(applyMiddleware(createLogger()))
 );
 
