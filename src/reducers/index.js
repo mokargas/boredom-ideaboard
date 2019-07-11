@@ -4,7 +4,6 @@ export const Reducers = (state = {}, action) => {
   const { id, title, content, updated, created } = action;
   switch (action.type) {
     case ActionTypes.CREATE_NODE:
-      console.log(state);
       return Object.assign({}, state, {
         nodes: [
           ...state.nodes,

@@ -1,19 +1,18 @@
 import React from "react";
-import api from "./api/api";
-/*
+import styled from "styled-components";
+import Node from "../../components/Node/Node";
 
-  What information would a "node" have?
+const Container = styled.div`
+  border-bottom: 1px solid #eee;
+`;
 
+const NodeController = ({ nodes }) => {
+  return (
+    <Container>
+      {nodes.length > 0 &&
+        nodes.map((node, index) => <Node key={index} {...node} />)}
+    </Container>
+  );
+};
 
-
-const exampleNode = {
-  title: "Some item",
-  content: "some content",
-  updated: "date stamp",
-  created: "date stamp",
-  archived: false,
-}
-
-*/
-
-const NodeController = ({ nodes }) => {};
+export default NodeController;

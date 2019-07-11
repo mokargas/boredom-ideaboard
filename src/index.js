@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -9,9 +9,7 @@ import "reset-css";
 import "./styles.css";
 
 import App from "./components/App";
-
 import { Reducers as rootReducer } from "./reducers";
-import initialState from "./state/initialState";
 
 const store = createStore(
   rootReducer,
@@ -20,7 +18,8 @@ const store = createStore(
 );
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(
+
+render(
   <Provider store={store}>
     <App />
   </Provider>,
