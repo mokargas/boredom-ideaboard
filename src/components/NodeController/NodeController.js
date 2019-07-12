@@ -40,6 +40,7 @@ const Container = styled.div`
 
 const NodeList = styled.div`
   display: grid;
+  padding-top: 2rem;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1.5rem;
 `;

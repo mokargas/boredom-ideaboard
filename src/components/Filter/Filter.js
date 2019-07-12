@@ -32,7 +32,10 @@ const OptionContainer = styled.div`
   height: 3rem;
 `;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  position: relative;
+  z-index: 3;
+`;
 
 const Checkbox = ({ active }) => {
   return (
@@ -103,11 +106,15 @@ const customStyles = {
   }
 };
 
-const Filter = ({ items }) => {
+const Filter = ({ items, onUpdate }) => {
+  const handleChange = selected => {
+    onUpdate && onUpdate(selected);
+  };
   return (
     <Wrapper>
       <Select
         options={items}
+        onChange={handleChange}
         blurInputOnSelect
         styles={customStyles}
         placeholder="Sort"

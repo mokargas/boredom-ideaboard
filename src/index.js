@@ -9,11 +9,12 @@ import "reset-css";
 import "./styles.css";
 
 import App from "./components/App";
-import { Reducers as rootReducer } from "./reducers";
+import rootReducer from "./reducers";
+import initial from "./state";
 
 const store = createStore(
   rootReducer,
-  { nodes: [] }, //TODO: Move, just some test store for now.
+  initial, //TODO: Move, just some test store for now.
   composeWithDevTools(applyMiddleware(createLogger()))
 );
 

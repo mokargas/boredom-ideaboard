@@ -1,6 +1,7 @@
 //Initial nodes
 //TODO: We could prefill from the user's localstorage.
-
-export const initial = {
+const initial = {
+  ui: {},
   nodes: []
 };
+export default initial;
