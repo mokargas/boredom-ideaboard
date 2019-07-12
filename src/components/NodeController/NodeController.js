@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import ActionTypes from "../../constants/";
 import Node from "../../components/Node/Node";
 
+import { IoMdAdd } from "react-icons/io";
+
 const Actions = styled.div`
   display: flex;
   align-items: center;
@@ -13,41 +15,60 @@ const Actions = styled.div`
 `;
 
 const AddButton = styled.button`
+  display: flex;
+  align-items: center;
   transition: 0.32s ease-out all;
-  border: 1px solid darkgreen;
-  background: transparent;
-  color: darkgreen;
+  border: 1px solid #b6f7c1;
+  background: #b6f7c1;
+  color: #373640;
   font-size: 1.25rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem 0.5rem 0.5rem;
   cursor: pointer;
   border-radius: 4px;
   &:hover {
-    background: darkgreen;
-    color: #fff;
+    background: #caffd3;
+    color: #373640;
     transform: translate(0, -2px);
     box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.7);
   }
 `;
 
 const Container = styled.div`
-  padding-bottom: 2rem;
-  border-bottom: 1px solid #eee;
+  margin-bottom: 2rem;
+`;
+
+const NodeList = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1.5rem;
+`;
+
+const IconWrapper = styled.div`
+  display: inline-flex;
+  margin-right: 0.25rem;
 `;
 
 const NodeController = ({ nodes, createNode, deleteNode, updateNode }) => {
   return (
     <Container>
-      {nodes.length > 0 &&
-        nodes.map((node, index) => (
-          <Node
-            key={index}
-            {...node}
-            onDelete={deleteNode}
-            onUpdate={updateNode}
-          />
-        ))}
+      <NodeList>
+        {nodes.length > 0 &&
+          nodes.map((node, index) => (
+            <Node
+              key={index}
+              {...node}
+              onDelete={deleteNode}
+              onUpdate={updateNode}
+            />
+          ))}
+      </NodeList>
       <Actions>
-        <AddButton onClick={() => createNode()}>Add new idea</AddButton>
+        <AddButton onClick={() => createNode()}>
+          <IconWrapper>
+            <IoMdAdd />
+          </IconWrapper>
+          Create
+        </AddButton>
       </Actions>
     </Container>
   );

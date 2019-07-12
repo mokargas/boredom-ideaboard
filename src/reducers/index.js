@@ -5,6 +5,7 @@ export const Reducers = (state = {}, action) => {
   const { id, title, content } = action;
   switch (action.type) {
     case ActionTypes.CREATE_NODE:
+      const initialDate = new Date();
       return Object.assign({}, state, {
         nodes: [
           ...state.nodes,
@@ -12,14 +13,13 @@ export const Reducers = (state = {}, action) => {
             id: uuid(),
             title,
             content,
-            updated: new Date(),
-            created: new Date()
+            updated: initialDate,
+            created: initialDate
           }
         ]
       });
     case ActionTypes.UPDATE_NODE:
       const selectedNode = state.nodes.find(node => node.id === id);
-      console.log(selectedNode);
       const updatedNode = {
         ...selectedNode,
         title,
