@@ -1,7 +1,8 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import styled from "styled-components";
 import ContentEditable from "react-contenteditable";
 import dateFns from "date-fns";
+import sanitizeHtml from "sanitize-html";
 
 import { IoIosClose } from "react-icons/io";
 
@@ -61,29 +62,73 @@ const Updated = styled.div`
   padding-bottom: 1rem;
 `;
 
-const Node = ({ id, title, content, updated, onUpdate, onDelete }) => {
-  const handleClose = () => {
+const sanitizeConf = {
+  allowedTags: ["b", "i", "em", "strong", "a", "p", "h1"],
+  allowedAttributes: { a: ["href"] }
+};
+
+class Node extends PureComponent {
+  //NOTE: Not particularly robust. Re-render may drop data
+  state = {
+    title: this.props.title,
+    content: this.props.content
+  };
+
+  handleClose = id => {
+    const { onDelete } = this.props;
     onDelete && onDelete(id);
   };
 
-  const handleBlur = evt => {
-    onUpdate && onUpdate(id, evt.target.value, content);
+  handleChange = (evt, field) => {
+    this.setState({
+      ...this.state,
+      [field]: evt.target.value
+    });
   };
 
-  return (
-    <Container>
-      <Updated>
-        Last updated: {dateFns.format(updated, "MM/DD/YYYY hh:mm a")}
-      </Updated>
-      <Title>
-        <ContentEditable html={title} onChange={handleBlur} tagName="h4" />
-      </Title>
-      <Content>{content}</Content>
-      <CloseButton onClick={handleClose}>
-        <IoIosClose size={24} />
-      </CloseButton>
-    </Container>
-  );
-};
+  handleSanitize = id => {
+    const { onUpdate } = this.props;
+    const { title, content } = this.state;
+    this.setState(
+      {
+        title: sanitizeHtml(title, sanitizeConf),
+        content: sanitizeHtml(content, sanitizeConf)
+      },
+      () => {
+        onUpdate && onUpdate(id, title, content);
+      }
+    );
+  };
+
+  render() {
+    const { id, updated } = this.props;
+    return (
+      <Container>
+        <Updated>
+          Last updated: {dateFns.format(updated, "MM/DD/YYYY hh:mm a")}
+        </Updated>
+        <Title>
+          <ContentEditable
+            html={this.state.title}
+            onChange={evt => this.handleChange(evt, "title")}
+            onBlur={() => this.handleSanitize(id)}
+            tagName="h4"
+          />
+        </Title>
+        <Content>
+          <ContentEditable
+            html={this.state.content}
+            onChange={evt => this.handleChange(evt, "content")}
+            onBlur={() => this.handleSanitize(id)}
+            tagName="p"
+          />
+        </Content>
+        <CloseButton onClick={() => this.handleClose(id)}>
+          <IoIosClose size={24} />
+        </CloseButton>
+      </Container>
+    );
+  }
+}
 
 export default Node;
