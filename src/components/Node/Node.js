@@ -23,6 +23,9 @@ const Content = styled.div`
   font-size: 1.25rem;
   font-weight: #888;
   line-height: 1.5;
+  & > p {
+    min-height: 100px;
+  }
 `;
 
 const CloseButton = styled.button`

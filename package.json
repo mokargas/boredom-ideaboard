@@ -1,7 +1,7 @@
 {
   "name": "playing-with-redux",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple ideaboard project to keep the boredom away",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
@@ -12,6 +12,7 @@
     "react-icons": "3.7.0",
     "react-redux": "7.1.0",
     "react-scripts": "3.0.1",
+    "react-select": "3.0.4",
     "redux": "4.0.2",
     "redux-devtools-extension": "2.13.8",
     "redux-logger": "3.0.6",

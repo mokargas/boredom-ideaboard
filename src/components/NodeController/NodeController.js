@@ -6,6 +6,7 @@ import ActionTypes from "../../constants/";
 import Node from "../../components/Node/Node";
 
 import { IoMdAdd } from "react-icons/io";
+import Filter from "../Filter/Filter";
 
 const Actions = styled.div`
   display: flex;
@@ -48,9 +49,16 @@ const IconWrapper = styled.div`
   margin-right: 0.25rem;
 `;
 
+const filterOptions = [
+  { label: "Updated Date", value: "updated" },
+  { label: "Created Date", value: "created" },
+  { label: "Title", value: "title" }
+];
+
 const NodeController = ({ nodes, createNode, deleteNode, updateNode }) => {
   return (
     <Container>
+      <Filter items={filterOptions} />
       <NodeList>
         {nodes.length > 0 &&
           nodes.map((node, index) => (
@@ -63,11 +71,11 @@ const NodeController = ({ nodes, createNode, deleteNode, updateNode }) => {
           ))}
       </NodeList>
       <Actions>
-        <AddButton onClick={() => createNode()}>
+        <AddButton onClick={() => createNode()} title="Create a new idea">
           <IconWrapper>
             <IoMdAdd />
           </IconWrapper>
-          Create
+          Create new
         </AddButton>
       </Actions>
     </Container>
