@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
-import Actions from "../../actions";
 import Node from "../../components/Node/Node";
 
 import { IoMdAdd } from "react-icons/io";
 import Filter from "../Filter/Filter";
+import ActionTypes from "../../constants/";
 
 const ActionsContainer = styled.div`
   display: flex;
@@ -94,16 +94,31 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     updateFilter: selected => {
-      dispatch(Actions.updateFilter(selected));
+      dispatch({
+        type: ActionTypes.UPDATE_FILTER,
+        selected
+      });
     },
     createNode: (title = "New node", content = "Add some data") => {
-      dispatch(Actions.createNode(title, content));
+      dispatch({
+        type: ActionTypes.CREATE_NODE,
+        title,
+        content
+      });
     },
     deleteNode: id => {
-      dispatch(Actions.deleteNode(id));
+      dispatch({
+        type: ActionTypes.DELETE_NODE,
+        id
+      });
     },
     updateNode: (id, title, content) => {
-      dispatch(Actions.updateNode(id, title, content));
+      dispatch({
+        type: ActionTypes.UPDATE_NODE,
+        id,
+        title,
+        content
+      });
     }
   };
 };

@@ -114,10 +114,8 @@ const customStyles = {
 };
 
 const Filter = ({ items, onUpdate }) => {
-  const handleChange = selected => {
-    console.log(selected);
-    onUpdate && onUpdate(selected);
-  };
+  const handleChange = selected => onUpdate && onUpdate(selected);
+
   return (
     <Wrapper>
       <Select

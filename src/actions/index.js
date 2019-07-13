@@ -1,5 +1,12 @@
 import ActionTypes from "../constants";
 
+export const updateFilter = ({ selected }) => {
+  return {
+    type: ActionTypes.UPDATE_FILTER,
+    selected
+  };
+};
+
 export const createNode = ({ title, content, created }) => {
   return {
     type: ActionTypes.CREATE_NODE,
@@ -23,12 +30,5 @@ export const deleteNode = ({ id }) => {
   return {
     type: ActionTypes.DELETE_NODE,
     id
-  };
-};
-
-export const updateFilter = ({ selected }) => {
-  return {
-    type: ActionTypes.UPDATE_FILTER,
-    selected
   };
 };
