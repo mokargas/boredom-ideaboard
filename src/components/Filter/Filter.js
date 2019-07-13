@@ -110,6 +110,14 @@ const customStyles = {
       paddingLeft: "3rem",
       transition: "0.25s ease-out all"
     };
+  },
+  singleValue: (base, state) => {
+    return {
+      ...base,
+      color: "#fff",
+      padding: "2px",
+      fontWeight: "bold"
+    };
   }
 };
 
