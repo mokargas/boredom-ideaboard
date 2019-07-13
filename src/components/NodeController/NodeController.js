@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
-import ActionTypes from "../../constants/";
+import Actions from "../../actions";
 import Node from "../../components/Node/Node";
 
 import { IoMdAdd } from "react-icons/io";
 import Filter from "../Filter/Filter";
 
-const Actions = styled.div`
+const ActionsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-items: center;
@@ -50,16 +50,17 @@ const IconWrapper = styled.div`
   margin-right: 0.25rem;
 `;
 
-const filterOptions = [
-  { label: "Updated Date", value: "updated" },
-  { label: "Created Date", value: "created" },
-  { label: "Title", value: "title" }
-];
-
-const NodeController = ({ nodes, createNode, deleteNode, updateNode }) => {
+const NodeController = ({
+  nodes,
+  createNode,
+  deleteNode,
+  updateNode,
+  updateFilter,
+  filterOptions
+}) => {
   return (
     <Container>
-      <Filter items={filterOptions} />
+      <Filter items={filterOptions} onUpdate={updateFilter} />
       <NodeList>
         {nodes.length > 0 &&
           nodes.map((node, index) => (
@@ -71,46 +72,38 @@ const NodeController = ({ nodes, createNode, deleteNode, updateNode }) => {
             />
           ))}
       </NodeList>
-      <Actions>
+      <ActionsContainer>
         <AddButton onClick={() => createNode()} title="Create a new idea">
           <IconWrapper>
             <IoMdAdd />
           </IconWrapper>
           Create new
         </AddButton>
-      </Actions>
+      </ActionsContainer>
     </Container>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    nodes: state.nodes
+    nodes: state.nodes,
+    filterOptions: state.ui.filters
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    updateFilter: selected => {
+      dispatch(Actions.updateFilter(selected));
+    },
     createNode: (title = "New node", content = "Add some data") => {
-      dispatch({
-        type: ActionTypes.CREATE_NODE,
-        title,
-        content
-      });
+      dispatch(Actions.createNode(title, content));
     },
     deleteNode: id => {
-      dispatch({
-        type: ActionTypes.DELETE_NODE,
-        id
-      });
+      dispatch(Actions.deleteNode(id));
     },
     updateNode: (id, title, content) => {
-      dispatch({
-        type: ActionTypes.UPDATE_NODE,
-        title,
-        content,
-        id
-      });
+      dispatch(Actions.updateNode(id, title, content));
     }
   };
 };

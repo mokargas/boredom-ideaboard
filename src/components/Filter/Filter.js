@@ -41,7 +41,7 @@ const Checkbox = ({ active }) => {
   return (
     <CheckboxContainer active={active} style={{ pointerEvents: "none" }}>
       <IoMdCheckmark
-        color={active ? "#ffffff" : "transparent"}
+        color={active ? "#333" : "transparent"}
         size="24"
         style={{ display: active ? "block" : "none" }}
       />
@@ -60,11 +60,18 @@ const Option = props => {
   );
 };
 
+const DefaultValueContainer = ({ children, ...props }) => (
+  <components.ValueContainer {...props}>{children}</components.ValueContainer>
+);
+
+const ValueContainer = props => <DefaultValueContainer {...props} />;
+
 const customStyles = {
   control: (base, state) => {
     return {
       ...base,
       border: "none",
+      color: "red",
       margin: 0,
       minHeight: "3rem",
       padding: 0,
@@ -108,19 +115,22 @@ const customStyles = {
 
 const Filter = ({ items, onUpdate }) => {
   const handleChange = selected => {
+    console.log(selected);
     onUpdate && onUpdate(selected);
   };
   return (
     <Wrapper>
       <Select
+        isSearchable={false}
         options={items}
-        onChange={handleChange}
+        onChange={selected => handleChange(selected)}
         blurInputOnSelect
         styles={customStyles}
         placeholder="Sort"
         components={makeAnimated({
           IndicatorSeparator: () => null,
-          Option
+          Option,
+          ValueContainer
         })}
       />
     </Wrapper>

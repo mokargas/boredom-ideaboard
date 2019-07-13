@@ -1,4 +1,4 @@
-import ActionTypes from "./constants/actionTypes";
+import ActionTypes from "../constants";
 
 export const createNode = ({ title, content, created }) => {
   return {
@@ -23,5 +23,12 @@ export const deleteNode = ({ id }) => {
   return {
     type: ActionTypes.DELETE_NODE,
     id
+  };
+};
+
+export const updateFilter = ({ selected }) => {
+  return {
+    type: ActionTypes.UPDATE_FILTER,
+    selected
   };
 };
