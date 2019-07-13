@@ -111,7 +111,7 @@ const customStyles = {
       transition: "0.25s ease-out all"
     };
   },
-  singleValue: (base, state) => {
+  singleValue: base => {
     return {
       ...base,
       color: "#fff",
@@ -132,7 +132,7 @@ const Filter = ({ items, onUpdate }) => {
         onChange={selected => handleChange(selected)}
         blurInputOnSelect
         styles={customStyles}
-        placeholder="Sort"
+        placeholder="Sorting options"
         components={makeAnimated({
           IndicatorSeparator: () => null,
           Option,

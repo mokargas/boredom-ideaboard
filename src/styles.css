@@ -2,7 +2,7 @@
 
 :root {
   font-family: "Raleway", "Helvetica", "Arial", sans-serif;
-  height: 100%;
+  min-height: 100%;
 }
 
 h1 {

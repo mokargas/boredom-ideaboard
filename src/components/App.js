@@ -7,7 +7,6 @@ const Container = styled.div`
   margin: 0 auto;
   padding: 8rem 3rem 3rem 3rem;
   background: #63686e;
-  height: 100vh;
 `;
 
 const Header = styled.div`
