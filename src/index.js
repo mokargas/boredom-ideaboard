@@ -14,7 +14,7 @@ import initial from "./state";
 
 const store = createStore(
   rootReducer,
-  initial, //TODO: Move, just some test store for now.
+  initial,
   composeWithDevTools(applyMiddleware(createLogger()))
 );
 

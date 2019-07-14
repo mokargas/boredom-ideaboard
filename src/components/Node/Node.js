@@ -77,6 +77,13 @@ class Node extends PureComponent {
     content: this.props.content
   };
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      title: nextProps.title,
+      content: nextProps.content
+    });
+  }
+
   handleClose = id => {
     const { onDelete } = this.props;
     onDelete && onDelete(id);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
@@ -50,39 +50,54 @@ const IconWrapper = styled.div`
   margin-right: 0.25rem;
 `;
 
-const NodeController = ({
-  nodes,
-  createNode,
-  deleteNode,
-  updateNode,
-  updateFilter,
-  filterOptions
-}) => {
-  return (
-    <Container>
-      <Filter items={filterOptions} onUpdate={updateFilter} />
-      <NodeList>
-        {nodes.length > 0 &&
-          nodes.map((node, index) => (
-            <Node
-              key={index}
-              {...node}
-              onDelete={deleteNode}
-              onUpdate={updateNode}
-            />
-          ))}
-      </NodeList>
-      <ActionsContainer>
-        <AddButton onClick={() => createNode()} title="Create a new idea">
-          <IconWrapper>
-            <IoMdAdd />
-          </IconWrapper>
-          Create new
-        </AddButton>
-      </ActionsContainer>
-    </Container>
-  );
-};
+class NodeController extends Component {
+  sortPosts() {
+    const { nodes, filterOptions } = this.props;
+    const key = filterOptions.find(i => i.default).value;
+    const sorter =
+      key === "title"
+        ? (a, b) => a[key].localeCompare(b[key])
+        : (a, b) => new Date(b[key]).getTime() - new Date(a[key]).getTime();
+    return [...nodes.sort(sorter)];
+  }
+
+  render() {
+    const {
+      nodes,
+      createNode,
+      deleteNode,
+      updateNode,
+      updateFilter,
+      filterOptions
+    } = this.props;
+    return (
+      <Container>
+        {nodes.length > 2 && (
+          <Filter items={filterOptions} onUpdate={updateFilter} />
+        )}
+        <NodeList>
+          {nodes.length > 0 &&
+            this.sortPosts().map((node, index) => (
+              <Node
+                key={index}
+                {...node}
+                onDelete={deleteNode}
+                onUpdate={updateNode}
+              />
+            ))}
+        </NodeList>
+        <ActionsContainer>
+          <AddButton onClick={() => createNode()} title="Create a new idea">
+            <IconWrapper>
+              <IoMdAdd />
+            </IconWrapper>
+            Create new
+          </AddButton>
+        </ActionsContainer>
+      </Container>
+    );
+  }
+}
 
 const mapStateToProps = state => {
   return {

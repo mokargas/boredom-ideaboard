@@ -3,6 +3,11 @@
 :root {
   font-family: "Raleway", "Helvetica", "Arial", sans-serif;
   min-height: 100%;
+  background: #63686e;
+}
+
+body {
+  min-height: 100%;
 }
 
 h1 {
