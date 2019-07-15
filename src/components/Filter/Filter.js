@@ -132,6 +132,7 @@ const Filter = ({ items, onUpdate }) => {
         onChange={selected => handleChange(selected)}
         blurInputOnSelect
         styles={customStyles}
+        value={items.filter(item => item.default)}
         placeholder="Sorting options"
         components={makeAnimated({
           IndicatorSeparator: () => null,
