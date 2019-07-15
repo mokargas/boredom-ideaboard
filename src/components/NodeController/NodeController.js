@@ -11,8 +11,7 @@ import ActionTypes from "../../constants/";
 const ActionsContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-items: center;
-  margin-top: 2rem;
+  justify-content: space-between;
 `;
 
 const AddButton = styled.button`
@@ -23,7 +22,7 @@ const AddButton = styled.button`
   background: #b6f7c1;
   color: #373640;
   font-size: 1.25rem;
-  padding: 0.5rem 0.75rem 0.5rem 0.5rem;
+  padding: 0.7rem 0.7rem;
   cursor: pointer;
   border-radius: 4px;
   &:hover {
@@ -40,7 +39,7 @@ const Container = styled.div`
 
 const NodeList = styled.div`
   display: grid;
-  padding-top: 2rem;
+  padding: 2rem 0;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1.5rem;
 `;
@@ -72,20 +71,6 @@ class NodeController extends Component {
     } = this.props;
     return (
       <Container>
-        {nodes.length > 2 && (
-          <Filter items={filterOptions} onUpdate={updateFilter} />
-        )}
-        <NodeList>
-          {nodes.length > 0 &&
-            this.sortPosts().map((node, index) => (
-              <Node
-                key={index}
-                {...node}
-                onDelete={deleteNode}
-                onUpdate={updateNode}
-              />
-            ))}
-        </NodeList>
         <ActionsContainer>
           <AddButton onClick={() => createNode()} title="Create a new idea">
             <IconWrapper>
@@ -93,7 +78,27 @@ class NodeController extends Component {
             </IconWrapper>
             Create new
           </AddButton>
+          {nodes.length > -1 && (
+            <Filter
+              title="Sort by"
+              items={filterOptions}
+              onUpdate={updateFilter}
+            />
+          )}
         </ActionsContainer>
+
+        {nodes.length > 0 && (
+          <NodeList>
+            {this.sortPosts().map((node, index) => (
+              <Node
+                key={index}
+                {...node}
+                onDelete={deleteNode}
+                onUpdate={updateNode}
+              />
+            ))}
+          </NodeList>
+        )}
       </Container>
     );
   }

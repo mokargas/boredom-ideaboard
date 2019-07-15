@@ -32,9 +32,17 @@ const OptionContainer = styled.div`
   height: 3rem;
 `;
 
+const Title = styled.div`
+  color: #fff;
+`;
+
 const Wrapper = styled.div`
   position: relative;
   z-index: 3;
+  min-width: 300px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
 const Checkbox = ({ active }) => {
@@ -74,6 +82,7 @@ const customStyles = {
       color: "red",
       margin: 0,
       minHeight: "3rem",
+      minWidth: "200px",
       padding: 0,
       backgroundColor: "#373640"
     };
@@ -121,11 +130,12 @@ const customStyles = {
   }
 };
 
-const Filter = ({ items, onUpdate }) => {
+const Filter = ({ items, onUpdate, title }) => {
   const handleChange = selected => onUpdate && onUpdate(selected);
 
   return (
     <Wrapper>
+      {title && <Title>{title}</Title>}
       <Select
         isSearchable={false}
         options={items}

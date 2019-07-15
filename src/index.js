@@ -10,13 +10,22 @@ import "./styles.css";
 
 import App from "./components/App";
 import rootReducer from "./reducers";
-import initial from "./state";
+import { load, save } from "./state/localStorage";
 
 const store = createStore(
   rootReducer,
-  initial,
+  load(),
   composeWithDevTools(applyMiddleware(createLogger()))
 );
+
+store.subscribe(() => {
+  save({
+    ui: {
+      ...store.getState().ui
+    },
+    nodes: [...store.getState().nodes]
+  });
+});
 
 const rootElement = document.getElementById("root");
 

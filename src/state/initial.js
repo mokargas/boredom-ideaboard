@@ -1,5 +1,5 @@
 //Initial nodes
-//TODO: We could prefill from the user's localstorage.
+//TODO: We could prefill from the user's localstorage ...
 const initial = {
   ui: {
     filters: [
