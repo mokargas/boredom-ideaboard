@@ -132,12 +132,13 @@ const mapDispatchToProps = dispatch => {
         id
       });
     },
-    updateNode: (id, title, content) => {
+    updateNode: (id, title, content, color) => {
       dispatch({
         type: ActionTypes.UPDATE_NODE,
         id,
         title,
-        content
+        content,
+        color
       });
     }
   };

@@ -137,10 +137,18 @@ class Node extends PureComponent {
   };
 
   handleColorChange = (color, event) => {
-    this.setState({
-      color: color.hex,
-      isSwatchVisible: false
-    });
+    const { id, onUpdate } = this.props;
+    const { title, content } = this.state;
+
+    this.setState(
+      {
+        color: color.hex,
+        isSwatchVisible: false
+      },
+      () => {
+        onUpdate && onUpdate(id, title, content, color.hex);
+      }
+    );
   };
 
   handleSanitize = id => {
