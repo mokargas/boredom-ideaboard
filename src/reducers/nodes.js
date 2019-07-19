@@ -2,7 +2,7 @@ import ActionTypes from "/src/constants";
 import uuid from "uuid";
 
 export default function(state = {}, action) {
-  const { id, title, content, color = "fffcc1" } = action;
+  const { id, title, content, color = "#fffcc1" } = action;
   switch (action.type) {
     case ActionTypes.CREATE_NODE:
       const initialDate = new Date();

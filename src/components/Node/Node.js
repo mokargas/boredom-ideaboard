@@ -3,13 +3,14 @@ import styled from "styled-components";
 import ContentEditable from "react-contenteditable";
 import dateFns from "date-fns";
 import sanitizeHtml from "sanitize-html";
+import { GithubPicker as Picker } from "react-color";
 
 import { IoIosClose } from "react-icons/io";
 
 const Container = styled.div`
   transition: 0.32s cubic-bezier(0.165, 0.84, 0.44, 1) all;
   position: relative;
-  background: #fffcc1;
+  background: ${props => (props.color ? props.color : `#fffcc1`)};
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 5px;
@@ -28,6 +29,36 @@ const Content = styled.div`
   }
 `;
 
+const ColorPicker = styled.div`
+  position: absolute;
+  z-index: 2;
+  bottom: -75px;
+  right: -10px;
+`;
+
+const ColorButton = styled.button`
+  transition: 0.32s cubic-bezier(0.165, 0.84, 0.44, 1) all;
+  position: absolute;
+  background: ${props => props.color};
+  padding: 0;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: -0.5rem;
+  right: -0.5rem;
+  z-index: 1;
+  border: 2px solid #000;
+  cursor: pointer;
+  color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.47);
+  &:hover {
+    background: #7e97a6;
+  }
+`;
+
 const CloseButton = styled.button`
   transition: 0.32s cubic-bezier(0.165, 0.84, 0.44, 1) all;
   position: absolute;
@@ -41,7 +72,7 @@ const CloseButton = styled.button`
   top: -0.5rem;
   right: -0.5rem;
   z-index: 1;
-  border: 2px solid #fffcc1;
+  border: 2px solid #fff;
   cursor: pointer;
   color: #fff;
   border-radius: 50%;
@@ -73,14 +104,17 @@ const sanitizeConf = {
 class Node extends PureComponent {
   //NOTE: Not particularly robust. Re-render may drop data
   state = {
+    isSwatchVisible: false,
     title: this.props.title,
-    content: this.props.content
+    content: this.props.content,
+    color: this.props.color
   };
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       title: nextProps.title,
-      content: nextProps.content
+      content: nextProps.content,
+      color: nextProps.color
     });
   }
 
@@ -93,6 +127,19 @@ class Node extends PureComponent {
     this.setState({
       ...this.state,
       [field]: evt.target.value
+    });
+  };
+
+  handleColorSwatchClick = () => {
+    this.setState({
+      isSwatchVisible: !this.state.isSwatchVisible
+    });
+  };
+
+  handleColorChange = (color, event) => {
+    this.setState({
+      color: color.hex,
+      isSwatchVisible: false
     });
   };
 
@@ -112,14 +159,15 @@ class Node extends PureComponent {
 
   render() {
     const { id, updated } = this.props;
+    const { isSwatchVisible, title, color } = this.state;
     return (
-      <Container>
+      <Container color={color}>
         <Updated>
           Last updated: {dateFns.format(updated, "MM/DD/YYYY hh:mm a")}
         </Updated>
         <Title>
           <ContentEditable
-            html={this.state.title}
+            html={title}
             onChange={evt => this.handleChange(evt, "title")}
             onBlur={() => this.handleSanitize(id)}
             tagName="h4"
@@ -136,6 +184,20 @@ class Node extends PureComponent {
         <CloseButton onClick={() => this.handleClose(id)}>
           <IoIosClose size={24} />
         </CloseButton>
+        <ColorButton
+          title="Note color"
+          onClick={() => this.handleColorSwatchClick()}
+          color={color}
+        />
+        {isSwatchVisible && (
+          <ColorPicker>
+            <Picker
+              color={color}
+              triangle="top-right"
+              onChangeComplete={this.handleColorChange}
+            />
+          </ColorPicker>
+        )}
       </Container>
     );
   }
