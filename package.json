@@ -20,7 +20,7 @@
     "reset-css": "4.0.1",
     "sanitize-html": "2.12.1",
     "styled-components": "4.3.2",
-    "uuid": "3.3.2"
+    "uuid": "14.0.0"
   },
   "devDependencies": {
     "typescript": "3.3.3"
